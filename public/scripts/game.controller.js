@@ -7,11 +7,17 @@ app.controller('gameCtrl', function($scope, $location, GameDataService, GameStat
 	$scope.currentLevel = 0;
 	$scope.userStats = "test";
 
-
+	$scope.resetValues = function() {
+		$scope.total = 0;
+		$scope.answers = [];
+		$scope.chartdata = [$scope.WIN_THRESHOLD];
+		$scope.chartlabels = ["none"];
+		$scope.gameMessage = "";
+	}
 
 	$scope.initLevel = function() {
 
-		resetValues();
+		$scope.resetValues();
 
 		console.log('getting level ' + $scope.currentLevel);
 		GameDataService.initGame().then(function(level) {
@@ -25,13 +31,6 @@ app.controller('gameCtrl', function($scope, $location, GameDataService, GameStat
 
 	$scope.initLevel();
 
-	$scope.resetValues = function() {
-		$scope.total = 0;
-		$scope.answers = [];
-		$scope.chartdata = [$scope.WIN_THRESHOLD];
-		$scope.chartlabels = ["none"];
-		$scope.gameMessage = "";
-	}
 
 	$scope.handleAnswer = function(keyEvent) {
 		$scope.gameMessage = "";
@@ -80,10 +79,20 @@ app.controller('gameCtrl', function($scope, $location, GameDataService, GameStat
 		}
 	}
 
+
 	$scope.nextLevel = function() {
 		GameStatsService.setLevelStats($scope.currentLevel, $scope.total, $scope.answers);
 		$scope.currentLevel++;
-		$scope.initLevel();
+
+		$scope.resetValues();
+
+		console.log('getting level ' + $scope.currentLevel);
+		GameDataService.getNextLevel().then(function(level) {
+				console.log("recieved level " + level);
+				$scope.levelTitle = level.levelTitle;
+				$scope.currentLevel = level.currentLevel;
+			})
+			.catch(console.log('No level retrived'));
 	}
 
 	$scope.gameStats = function() {

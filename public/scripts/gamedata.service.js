@@ -4,7 +4,7 @@ app.factory('GameDataService', function($q, $http) {
 		initGame: function(level) {
 			return $q(function(resolve, reject) {
 
-				$http.get('/api/initgame').then(
+				$http.get('/api/levels/initgame').then(
 					function(response) {
 						console.log('Recieved level data ' + response.data);
 						resolve(response.data)
@@ -14,7 +14,7 @@ app.factory('GameDataService', function($q, $http) {
 		getNextLevel: function(level) {
 			return $q(function(resolve, reject) {
 
-				$http.get('/api/nextlevel').then(
+				$http.get('/api/levels/nextlevel').then(
 					function(response) {
 						console.log('Recieved level data ' + response.data);
 						resolve(response.data)
