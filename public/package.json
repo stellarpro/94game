@@ -1,0 +1,19 @@
+{
+	"name": "my-app",
+	"private": true,
+	"version": "0.0.0",
+	"description": "Simple test runner",
+	"devDependencies": {
+		"bower": "^1.7.7",
+		"karma": "^0.13.22",
+		"karma-chrome-launcher": "^0.2.3",
+		"karma-firefox-launcher": "^0.1.7",
+		"karma-jasmine": "^0.3.8",
+		"protractor": "^3.2.2"
+	},
+	"scripts": {
+		"test": "karma start karma.conf.js",
+		"update-webdriver": "webdriver-manager update",
+		"protractor": "protractor e2e-tests/protractor.conf.js"
+	}
+}
